@@ -1,0 +1,1157 @@
+Coverage Report by instance with details
+
+=================================================================================
+=== Instance: /fifo_tb_top/fifo_if
+=== Design Unit: work.fifo_interface
+=================================================================================
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                         30        29         1    96.66%
+
+================================Toggle Details================================
+
+Toggle Coverage for instance /fifo_tb_top/fifo_if --
+
+                                              Node      1H->0L      0L->1H  "Coverage"
+                                              ---------------------------------------
+                                        fifo_empty           1           1      100.00 
+                                         fifo_full           1           1      100.00 
+                                              r_en           1           1      100.00 
+                                              rclk           1           1      100.00 
+                                        rdata[3-0]           1           1      100.00 
+                                             rst_n           0           1       50.00 
+                                              w_en           1           1      100.00 
+                                              wclk           1           1      100.00 
+                                        wdata[3-0]           1           1      100.00 
+
+Total Node Count     =         15 
+Toggled Node Count   =         14 
+Untoggled Node Count =          1 
+
+Toggle Coverage      =      96.66% (29 of 30 bins)
+
+=================================================================================
+=== Instance: /fifo_tb_top/DUT/fifo_u
+=== Design Unit: work.fifo_mem
+=================================================================================
+Branch Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Branches                         2         2         0   100.00%
+
+================================Branch Details================================
+
+Branch Coverage for instance /fifo_tb_top/DUT/fifo_u
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File src/fifo_mem.v
+------------------------------------IF Branch------------------------------------
+    22                                        37     Count coming in to IF
+    22              1                         33             if (w_en) begin
+                                               4     All False Count
+Branch totals: 2 hits of 2 branches = 100.00%
+
+
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                       3         3         0   100.00%
+
+================================Statement Details================================
+
+Statement Coverage for instance /fifo_tb_top/DUT/fifo_u --
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File src/fifo_mem.v
+    1                                                module fifo_mem #(
+    2                                                    parameter WIDTH = 8,
+    3                                                    parameter DEPTH = 16,
+    4                                                    parameter ADDR_WIDTH = 4
+    5                                                ) (
+    6                                                    // write signals
+    7                                                    input wire wclk,
+    8                                                    input wire w_en, 
+    9                                                    input wire [WIDTH-1:0] wdata,
+    10                                                   input wire [ADDR_WIDTH-1:0] waddr,
+    11                                                   
+    12                                                   // read signals
+    13                                                   input wire rclk,
+    14                                                   input wire r_en,
+    15                                                   input wire [ADDR_WIDTH-1:0] raddr,
+    16                                                   output wire [WIDTH-1:0] rdata
+    17                                               );
+    18                                                   reg [WIDTH-1:0] mem [DEPTH-1:0];
+    19                                               
+    20                                                   // write block 
+    21              1                         37         always @(posedge wclk) begin
+    22                                                       if (w_en) begin
+    23              1                         33                 mem[waddr] <= wdata;
+    24                                                       end
+    25                                                   end
+    26                                               
+    27                                                   // read 
+    28              1                         67         assign rdata = mem[raddr]; 
+
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                         40        40         0   100.00%
+
+================================Toggle Details================================
+
+Toggle Coverage for instance /fifo_tb_top/DUT/fifo_u --
+
+                                              Node      1H->0L      0L->1H  "Coverage"
+                                              ---------------------------------------
+                                              r_en           1           1      100.00 
+                                        raddr[0-3]           1           1      100.00 
+                                              rclk           1           1      100.00 
+                                        rdata[0-3]           1           1      100.00 
+                                              w_en           1           1      100.00 
+                                        waddr[0-3]           1           1      100.00 
+                                              wclk           1           1      100.00 
+                                        wdata[0-3]           1           1      100.00 
+
+Total Node Count     =         20 
+Toggled Node Count   =         20 
+Untoggled Node Count =          0 
+
+Toggle Coverage      =     100.00% (40 of 40 bins)
+
+=================================================================================
+=== Instance: /fifo_tb_top/DUT/u_write_handler
+=== Design Unit: work.write_handler
+=================================================================================
+Branch Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Branches                         2         2         0   100.00%
+
+================================Branch Details================================
+
+Branch Coverage for instance /fifo_tb_top/DUT/u_write_handler
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File src/write_handler.v
+------------------------------------IF Branch------------------------------------
+    35                                        43     Count coming in to IF
+    35              1                          2             if (!rst_n) begin
+    40              1                         41             else begin
+Branch totals: 2 hits of 2 branches = 100.00%
+
+
+Expression Coverage:
+    Enabled Coverage              Bins   Covered    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Expressions                      3         3         0   100.00%
+
+================================Expression Details================================
+
+Expression Coverage for instance /fifo_tb_top/DUT/u_write_handler --
+
+  File src/write_handler.v
+----------------Focused Expression View-----------------
+Line       22 Item    1  (w_en && ~full_flag)
+Expression totals: 2 of 2 input terms covered = 100.00%
+
+  Input Term   Covered  Reason for no coverage   Hint
+ -----------  --------  -----------------------  --------------
+        w_en         Y
+   full_flag         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  w_en_0                -                             
+  Row   2:          1  w_en_1                ~full_flag                    
+  Row   3:          1  full_flag_0           w_en                          
+  Row   4:          1  full_flag_1           w_en                          
+
+----------------Focused Expression View-----------------
+Line       32 Item    1  (wptr_gray_next == {~rptr_gray[4:3],rptr_gray[2:0]})
+Expression totals: 1 of 1 input term covered = 100.00%
+
+                                            Input Term   Covered  Reason for no coverage   Hint
+                                           -----------  --------  -----------------------  --------------
+  (wptr_gray_next == {~rptr_gray[4:3],rptr_gray[2:0]})         Y
+
+     Rows:       Hits  FEC Target                                              Non-masking condition(s)      
+ ---------  ---------  --------------------                                    -------------------------     
+  Row   1:          1  (wptr_gray_next == {~rptr_gray[4:3],rptr_gray[2:0]})_0  -                             
+  Row   2:          1  (wptr_gray_next == {~rptr_gray[4:3],rptr_gray[2:0]})_1  -                             
+
+
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                      12        12         0   100.00%
+
+================================Statement Details================================
+
+Statement Coverage for instance /fifo_tb_top/DUT/u_write_handler --
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File src/write_handler.v
+    1                                                module write_handler #(
+    2                                                    parameter ADDR_WIDTH = 4,
+    3                                                    parameter PTR_WIDTH  = 5
+    4                                                ) (
+    5                                                    input wire                  wclk,
+    6                                                    input wire                  w_en,
+    7                                                    input wire                  rst_n,
+    8                                                
+    9                                                    // synchronized read pointer in GRAY code
+    10                                                   input wire [PTR_WIDTH-1:0]  rptr_gray,
+    11                                               
+    12                                                   output reg  [PTR_WIDTH-1:0] wptr_gray,
+    13                                                   output wire [ADDR_WIDTH-1:0] waddr,
+    14                                                   output reg                   full_flag
+    15                                               );
+    16                                               
+    17                                                   wire write_do, full_next;
+    18                                                   wire [PTR_WIDTH-1:0] wptr_next;
+    19                                                   wire [PTR_WIDTH-1:0] wptr_gray_next; 
+    20                                                   reg  [PTR_WIDTH-1:0] wptr;
+    21                                               
+    22              1                         13         assign write_do = w_en && !full_flag;
+    23                                               
+    24                                                   // Current memory address
+    25              1                         35         assign waddr = wptr[ADDR_WIDTH-1:0];
+    26                                               
+    27                                                   // Next binary and gray pointers
+    28              1                         42         assign wptr_next      = wptr + write_do;
+    29              1                         41         assign wptr_gray_next = (wptr_next >> 1) ^ wptr_next;
+    30                                                   
+    31                                                   // Fixed: Correct MSB bit slicing for full condition
+    32              1                         73         assign full_next = (wptr_gray_next == {~rptr_gray[PTR_WIDTH-1:PTR_WIDTH-2], rptr_gray[PTR_WIDTH-3:0]});
+    33                                               
+    34              1                         43         always @(posedge wclk or negedge rst_n) begin
+    35                                                       if (!rst_n) begin
+    36              1                          2                 wptr       <= '0;
+    37              1                          2                 wptr_gray  <= '0;
+    38              1                          2                 full_flag  <= 1'b0; 
+    39                                                       end
+    40                                                       else begin
+    41              1                         41                 wptr       <= wptr_next;
+    42              1                         41                 wptr_gray  <= wptr_gray_next;
+    43              1                         41                 full_flag  <= full_next;
+
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                         70        68         2    97.14%
+
+================================Toggle Details================================
+
+Toggle Coverage for instance /fifo_tb_top/DUT/u_write_handler --
+
+                                              Node      1H->0L      0L->1H  "Coverage"
+                                              ---------------------------------------
+                                         full_flag           1           1      100.00 
+                                         full_next           1           1      100.00 
+                                    rptr_gray[0-3]           1           1      100.00 
+                                      rptr_gray[4]           0           1       50.00 
+                                             rst_n           0           1       50.00 
+                                              w_en           1           1      100.00 
+                                        waddr[0-3]           1           1      100.00 
+                                              wclk           1           1      100.00 
+                                         wptr[4-0]           1           1      100.00 
+                                    wptr_gray[4-0]           1           1      100.00 
+                               wptr_gray_next[0-4]           1           1      100.00 
+                                    wptr_next[0-4]           1           1      100.00 
+                                          write_do           1           1      100.00 
+
+Total Node Count     =         35 
+Toggled Node Count   =         33 
+Untoggled Node Count =          2 
+
+Toggle Coverage      =      97.14% (68 of 70 bins)
+
+=================================================================================
+=== Instance: /fifo_tb_top/DUT/u_read_handler
+=== Design Unit: work.read_handler
+=================================================================================
+Branch Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Branches                         2         2         0   100.00%
+
+================================Branch Details================================
+
+Branch Coverage for instance /fifo_tb_top/DUT/u_read_handler
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File src/read_handler.v
+------------------------------------IF Branch------------------------------------
+    34                                        44     Count coming in to IF
+    34              1                          2             if (!rst_n) begin
+    39              1                         42             else begin
+Branch totals: 2 hits of 2 branches = 100.00%
+
+
+Expression Coverage:
+    Enabled Coverage              Bins   Covered    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Expressions                      3         3         0   100.00%
+
+================================Expression Details================================
+
+Expression Coverage for instance /fifo_tb_top/DUT/u_read_handler --
+
+  File src/read_handler.v
+----------------Focused Expression View-----------------
+Line       22 Item    1  (r_en && ~empty_flag)
+Expression totals: 2 of 2 input terms covered = 100.00%
+
+  Input Term   Covered  Reason for no coverage   Hint
+ -----------  --------  -----------------------  --------------
+        r_en         Y
+  empty_flag         Y
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  r_en_0                -                             
+  Row   2:          1  r_en_1                ~empty_flag                   
+  Row   3:          1  empty_flag_0          r_en                          
+  Row   4:          1  empty_flag_1          r_en                          
+
+----------------Focused Expression View-----------------
+Line       31 Item    1  (rptr_gray_next == wptr_gray)
+Expression totals: 1 of 1 input term covered = 100.00%
+
+                     Input Term   Covered  Reason for no coverage   Hint
+                    -----------  --------  -----------------------  --------------
+  (rptr_gray_next == wptr_gray)         Y
+
+     Rows:       Hits  FEC Target                       Non-masking condition(s)      
+ ---------  ---------  --------------------             -------------------------     
+  Row   1:          1  (rptr_gray_next == wptr_gray)_0  -                             
+  Row   2:          1  (rptr_gray_next == wptr_gray)_1  -                             
+
+
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                      12        12         0   100.00%
+
+================================Statement Details================================
+
+Statement Coverage for instance /fifo_tb_top/DUT/u_read_handler --
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File src/read_handler.v
+    1                                                module read_handler #(
+    2                                                    parameter ADDR_WIDTH = 4,
+    3                                                    parameter PTR_WIDTH  = 5
+    4                                                ) (
+    5                                                    input wire                  rclk,
+    6                                                    input wire                  r_en,
+    7                                                    input wire                  rst_n,
+    8                                                
+    9                                                    // synchronized write pointer in GRAY code
+    10                                                   input wire [PTR_WIDTH-1:0]  wptr_gray,
+    11                                               
+    12                                                   output reg  [PTR_WIDTH-1:0] rptr_gray,
+    13                                                   output wire [ADDR_WIDTH-1:0] raddr,
+    14                                                   output reg                   empty_flag
+    15                                               );
+    16                                               
+    17                                                   wire read_do, empty_next;
+    18                                                   wire [PTR_WIDTH-1:0] rptr_next;
+    19                                                   wire [PTR_WIDTH-1:0] rptr_gray_next; 
+    20                                                   reg  [PTR_WIDTH-1:0] rptr; 
+    21                                               
+    22              1                         15         assign read_do = r_en && !empty_flag;
+    23                                               
+    24                                                   // Current memory address
+    25              1                         35         assign raddr = rptr[ADDR_WIDTH-1:0];
+    26                                               
+    27                                                   // Next binary and gray pointers
+    28              1                         42         assign rptr_next      = rptr + read_do;
+    29              1                         41         assign rptr_gray_next = (rptr_next >> 1) ^ rptr_next;
+    30                                               
+    31              1                         75         assign empty_next = (rptr_gray_next == wptr_gray);
+    32                                               
+    33              1                         44         always @(posedge rclk or negedge rst_n) begin
+    34                                                       if (!rst_n) begin
+    35              1                          2                 rptr       <= '0;
+    36              1                          2                 rptr_gray  <= '0;
+    37              1                          2                 empty_flag <= 1'b1;
+    38                                                       end
+    39                                                       else begin
+    40              1                         42                 rptr       <= rptr_next;
+    41              1                         42                 rptr_gray  <= rptr_gray_next;
+    42              1                         42                 empty_flag <= empty_next;
+
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                         70        69         1    98.57%
+
+================================Toggle Details================================
+
+Toggle Coverage for instance /fifo_tb_top/DUT/u_read_handler --
+
+                                              Node      1H->0L      0L->1H  "Coverage"
+                                              ---------------------------------------
+                                        empty_flag           1           1      100.00 
+                                        empty_next           1           1      100.00 
+                                              r_en           1           1      100.00 
+                                        raddr[0-3]           1           1      100.00 
+                                              rclk           1           1      100.00 
+                                           read_do           1           1      100.00 
+                                         rptr[4-0]           1           1      100.00 
+                                    rptr_gray[4-0]           1           1      100.00 
+                               rptr_gray_next[0-4]           1           1      100.00 
+                                    rptr_next[0-4]           1           1      100.00 
+                                             rst_n           0           1       50.00 
+                                    wptr_gray[0-4]           1           1      100.00 
+
+Total Node Count     =         35 
+Toggled Node Count   =         34 
+Untoggled Node Count =          1 
+
+Toggle Coverage      =      98.57% (69 of 70 bins)
+
+=================================================================================
+=== Instance: /fifo_tb_top/DUT/u_wptr_sync
+=== Design Unit: work.two_ff_sync
+=================================================================================
+Branch Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Branches                         2         2         0   100.00%
+
+================================Branch Details================================
+
+Branch Coverage for instance /fifo_tb_top/DUT/u_wptr_sync
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File src/two_ff_sync.v
+------------------------------------IF Branch------------------------------------
+    13                                        42     Count coming in to IF
+    13              1                          2             if (!rst_n) begin
+    17              1                         40             else begin
+Branch totals: 2 hits of 2 branches = 100.00%
+
+
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                       5         5         0   100.00%
+
+================================Statement Details================================
+
+Statement Coverage for instance /fifo_tb_top/DUT/u_wptr_sync --
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File src/two_ff_sync.v
+    1                                                module two_ff_sync #(
+    2                                                    parameter WIDTH = 8
+    3                                                ) (
+    4                                                    input wire clk,
+    5                                                    input wire [WIDTH-1:0] din,
+    6                                                    input wire rst_n,
+    7                                                
+    8                                                    output reg [WIDTH-1:0] q2
+    9                                                );
+    10                                               
+    11                                                   reg [WIDTH-1:0] q1;
+    12              1                         42         always @(posedge clk or negedge rst_n) begin
+    13                                                       if (!rst_n) begin
+    14              1                          2                 q1 <= 0;
+    15              1                          2                 q2 <= 0;
+    16                                                       end
+    17                                                       else begin
+    18              1                         40                 q1 <= din;
+    19              1                         40                 q2 <= q1;
+
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                         34        33         1    97.05%
+
+================================Toggle Details================================
+
+Toggle Coverage for instance /fifo_tb_top/DUT/u_wptr_sync --
+
+                                              Node      1H->0L      0L->1H  "Coverage"
+                                              ---------------------------------------
+                                               clk           1           1      100.00 
+                                          din[0-4]           1           1      100.00 
+                                           q1[4-0]           1           1      100.00 
+                                           q2[4-0]           1           1      100.00 
+                                             rst_n           0           1       50.00 
+
+Total Node Count     =         17 
+Toggled Node Count   =         16 
+Untoggled Node Count =          1 
+
+Toggle Coverage      =      97.05% (33 of 34 bins)
+
+=================================================================================
+=== Instance: /fifo_tb_top/DUT/u_rptr_sync
+=== Design Unit: work.two_ff_sync
+=================================================================================
+Branch Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Branches                         2         2         0   100.00%
+
+================================Branch Details================================
+
+Branch Coverage for instance /fifo_tb_top/DUT/u_rptr_sync
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File src/two_ff_sync.v
+------------------------------------IF Branch------------------------------------
+    13                                        39     Count coming in to IF
+    13              1                          2             if (!rst_n) begin
+    17              1                         37             else begin
+Branch totals: 2 hits of 2 branches = 100.00%
+
+
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                       5         5         0   100.00%
+
+================================Statement Details================================
+
+Statement Coverage for instance /fifo_tb_top/DUT/u_rptr_sync --
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File src/two_ff_sync.v
+    1                                                module two_ff_sync #(
+    2                                                    parameter WIDTH = 8
+    3                                                ) (
+    4                                                    input wire clk,
+    5                                                    input wire [WIDTH-1:0] din,
+    6                                                    input wire rst_n,
+    7                                                
+    8                                                    output reg [WIDTH-1:0] q2
+    9                                                );
+    10                                               
+    11                                                   reg [WIDTH-1:0] q1;
+    12              1                         39         always @(posedge clk or negedge rst_n) begin
+    13                                                       if (!rst_n) begin
+    14              1                          2                 q1 <= 0;
+    15              1                          2                 q2 <= 0;
+    16                                                       end
+    17                                                       else begin
+    18              1                         37                 q1 <= din;
+    19              1                         37                 q2 <= q1;
+
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                         34        32         2    94.11%
+
+================================Toggle Details================================
+
+Toggle Coverage for instance /fifo_tb_top/DUT/u_rptr_sync --
+
+                                              Node      1H->0L      0L->1H  "Coverage"
+                                              ---------------------------------------
+                                               clk           1           1      100.00 
+                                          din[0-4]           1           1      100.00 
+                                           q1[4-0]           1           1      100.00 
+                                             q2[4]           0           1       50.00 
+                                           q2[3-0]           1           1      100.00 
+                                             rst_n           0           1       50.00 
+
+Total Node Count     =         17 
+Toggled Node Count   =         15 
+Untoggled Node Count =          2 
+
+Toggle Coverage      =      94.11% (32 of 34 bins)
+
+=================================================================================
+=== Instance: /fifo_tb_top/DUT
+=== Design Unit: work.fifo_top
+=================================================================================
+Expression Coverage:
+    Enabled Coverage              Bins   Covered    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Expressions                      4         2         2    50.00%
+
+================================Expression Details================================
+
+Expression Coverage for instance /fifo_tb_top/DUT --
+
+  File src/fifo_top.sv
+----------------Focused Expression View-----------------
+Line       32 Item    1  (fifo_if.w_en && ~fifo_if.fifo_full)
+Expression totals: 1 of 2 input terms covered = 50.00%
+
+         Input Term   Covered  Reason for no coverage   Hint
+        -----------  --------  -----------------------  --------------
+       fifo_if.w_en         Y
+  fifo_if.fifo_full         N  '_1' not hit             Hit '_1'
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  fifo_if.w_en_0        -                             
+  Row   2:          1  fifo_if.w_en_1        ~fifo_if.fifo_full            
+  Row   3:          1  fifo_if.fifo_full_0   fifo_if.w_en                  
+  Row   4:    ***0***  fifo_if.fifo_full_1   fifo_if.w_en                  
+
+----------------Focused Expression View-----------------
+Line       37 Item    1  (fifo_if.r_en && ~fifo_if.fifo_empty)
+Expression totals: 1 of 2 input terms covered = 50.00%
+
+          Input Term   Covered  Reason for no coverage   Hint
+         -----------  --------  -----------------------  --------------
+        fifo_if.r_en         Y
+  fifo_if.fifo_empty         N  '_1' not hit             Hit '_1'
+
+     Rows:       Hits  FEC Target            Non-masking condition(s)      
+ ---------  ---------  --------------------  -------------------------     
+  Row   1:          1  fifo_if.r_en_0        -                             
+  Row   2:          1  fifo_if.r_en_1        ~fifo_if.fifo_empty           
+  Row   3:          1  fifo_if.fifo_empty_0  fifo_if.r_en                  
+  Row   4:    ***0***  fifo_if.fifo_empty_1  fifo_if.r_en                  
+
+
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                         56        55         1    98.21%
+
+================================Toggle Details================================
+
+Toggle Coverage for instance /fifo_tb_top/DUT --
+
+                                              Node      1H->0L      0L->1H  "Coverage"
+                                              ---------------------------------------
+                                        raddr[0-3]           1           1      100.00 
+                                    rptr_gray[0-4]           1           1      100.00 
+                               rptr_gray_sync[0-3]           1           1      100.00 
+                                 rptr_gray_sync[4]           0           1       50.00 
+                                        waddr[0-3]           1           1      100.00 
+                                    wptr_gray[0-4]           1           1      100.00 
+                               wptr_gray_sync[0-4]           1           1      100.00 
+
+Total Node Count     =         28 
+Toggled Node Count   =         27 
+Untoggled Node Count =          1 
+
+Toggle Coverage      =      98.21% (55 of 56 bins)
+
+=================================================================================
+=== Instance: /fifo_tb_top/tb
+=== Design Unit: work.fifo_tb
+=================================================================================
+
+Assertion Coverage:
+    Assertions                       9         9         0   100.00%
+--------------------------------------------------------------------
+Name                 File(Line)                   Failure      Pass 
+                                                  Count        Count
+--------------------------------------------------------------------
+/fifo_tb_top/tb/#ublk#217929410#67/immed__131
+                     tb/fifo_tb.sv(131)                 0          1
+/fifo_tb_top/tb/#ublk#217929410#67/immed__116
+                     tb/fifo_tb.sv(116)                 0          1
+/fifo_tb_top/tb/#ublk#217929410#67/immed__112
+                     tb/fifo_tb.sv(112)                 0          1
+/fifo_tb_top/tb/#ublk#217929410#67/immed__100
+                     tb/fifo_tb.sv(100)                 0          1
+/fifo_tb_top/tb/#ublk#217929410#67/immed__89
+                     tb/fifo_tb.sv(89)                  0          1
+/fifo_tb_top/tb/#ublk#217929410#67/immed__80
+                     tb/fifo_tb.sv(80)                  0          1
+/fifo_tb_top/tb/#ublk#217929410#67/immed__75
+                     tb/fifo_tb.sv(75)                  0          1
+/fifo_tb_top/tb/#ublk#217929410#67/#ublk#217929410#96/immed__97
+                     tb/fifo_tb.sv(97)                  0          1
+/fifo_tb_top/tb/#ublk#217929410#67/#ublk#217929410#108/immed__109
+                     tb/fifo_tb.sv(109)                 0          1
+Branch Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Branches                         4         2         2    50.00%
+
+================================Branch Details================================
+
+Branch Coverage for instance /fifo_tb_top/tb
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File tb/fifo_tb.sv
+------------------------------------IF Branch------------------------------------
+    34                                        33     Count coming in to IF
+    34              1                    ***0***             if (fifo_queue.size() == 0) begin
+                                              33     All False Count
+Branch totals: 1 hit of 2 branches = 50.00%
+
+------------------------------------IF Branch------------------------------------
+    40                                        33     Count coming in to IF
+    40              1                         33             if (expected_data === fifo_if.rdata) begin
+    43              1                    ***0***             end else begin
+Branch totals: 1 hit of 2 branches = 50.00%
+
+
+Condition Coverage:
+    Enabled Coverage              Bins   Covered    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Conditions                       2         0         2     0.00%
+
+================================Condition Details================================
+
+Condition Coverage for instance /fifo_tb_top/tb --
+
+  File tb/fifo_tb.sv
+----------------Focused Condition View-------------------
+Line       34 Item    1  (size(fifo_queue) == 0)
+Condition totals: 0 of 1 input term covered = 0.00%
+
+               Input Term   Covered  Reason for no coverage   Hint
+              -----------  --------  -----------------------  --------------
+  (size(fifo_queue) == 0)         N  '_1' not hit             Hit '_1'
+
+     Rows:       Hits  FEC Target                 Non-masking condition(s)      
+ ---------  ---------  --------------------       -------------------------     
+  Row   1:          1  (size(fifo_queue) == 0)_0  -                             
+  Row   2:    ***0***  (size(fifo_queue) == 0)_1  -                             
+
+----------------Focused Condition View-------------------
+Line       40 Item    1  (expected_data === fifo_if.rdata)
+Condition totals: 0 of 1 input term covered = 0.00%
+
+                         Input Term   Covered  Reason for no coverage   Hint
+                        -----------  --------  -----------------------  --------------
+  (expected_data === fifo_if.rdata)         N  '_0' not hit             Hit '_0'
+
+     Rows:       Hits  FEC Target                           Non-masking condition(s)      
+ ---------  ---------  --------------------                 -------------------------     
+  Row   1:    ***0***  (expected_data === fifo_if.rdata)_0  -                             
+  Row   2:          1  (expected_data === fifo_if.rdata)_1  -                             
+
+
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                      58        53         5    91.37%
+
+================================Statement Details================================
+
+Statement Coverage for instance /fifo_tb_top/tb --
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File tb/fifo_tb.sv
+    5                                                module fifo_tb #(
+    6                                                    parameter WIDTH = 4,
+    7                                                    parameter DEPTH = 16    
+    8                                                )(fifo_interface.TEST fifo_if);
+    9                                                
+    10                                                   // Golden model
+    11                                                   logic [WIDTH-1:0] fifo_queue [$ : DEPTH-1];
+    12                                               
+    13                                                   // Status counts
+    14                                                   int correct_count;
+    15                                                   int error_count;
+    16                                               
+    17              1                          1         fifo_transaction koko = new();
+    18              1                          1         fifo_cov cov = new(fifo_if);
+    19                                               
+    20                                                   task reset ();
+    21              1                          1             fifo_queue.delete();
+    22              1                          1             fifo_if.w_en  <= 0;
+    23              1                          1             fifo_if.r_en  <= 0;
+    24              1                          1             fifo_if.wdata <= 0;
+    25              1                          1             fifo_if.rst_n <= 0;
+    26              1                          2             repeat(2) @(posedge fifo_if.wclk);
+    26              2                          2     
+    27              1                          1             fifo_if.rst_n <= 1;
+    28              1                          2             repeat(2) @(posedge fifo_if.rclk);
+    28              2                          2     
+    29                                                   endtask
+    30                                               
+    31                                                   task automatic Check_output();
+    32                                                       logic [WIDTH-1:0] expected_data;
+    33                                               
+    34                                                       if (fifo_queue.size() == 0) begin
+    35              1                    ***0***                 $error("[Check_output] Queue Underflow! Read triggered but expected queue is empty.");
+    36              1                    ***0***                 return;
+    37                                                       end
+    38                                               
+    39              1                         33             expected_data = fifo_queue.pop_front();
+    40                                                       if (expected_data === fifo_if.rdata) begin
+    41              1                         33                 $display("correct output Expected: 0x%0h | Got: 0x%0h", expected_data, fifo_if.rdata);
+    42              1                         33                 correct_count++;
+    43                                                       end else begin
+    44              1                    ***0***                 $error("[Check_output] Mismatch! Expected: 0x%0h | Got: 0x%0h", expected_data, fifo_if.rdata);
+    45              1                    ***0***                 error_count++;
+    46                                                       end
+    47                                                   endtask
+    48                                               
+    49                                                   task write(input logic [WIDTH-1:0] data, input bit keep_w_en);
+    50              1                         33             fifo_if.w_en  <= 1'b1;
+    51              1                         33             fifo_if.wdata <= data;
+    52              1                         33             fifo_queue.push_back(data);
+    53              1                         33             @(posedge fifo_if.wclk);
+    54              1                         33             fifo_if.w_en  <= (keep_w_en) ? 1'b1 : 1'b0; 
+    55                                                   endtask
+    56                                               
+    57                                                   task read(input bit keep_r_en);
+    58              1                         33             fifo_if.r_en <= 1'b1;
+    59              1                         33             #1ps; // Fixed: Sample rdata before rclk edge advances rptr
+    60              1                         33             Check_output();
+    61              1                         33             @(posedge fifo_if.rclk);
+    62              1                         33             fifo_if.r_en <= (keep_r_en) ? 1'b1 : 1'b0;
+    63                                                   endtask
+    64                                               
+    65                                                   /////////////////////////////////////////////////////////////////
+    66                                                   
+    67                                                   initial begin
+    68              1                          1             correct_count = 0;
+    69              1                          1             error_count   = 0;
+    70                                               
+    71                                                       // Test case 1 : Reset 
+    72              1                          1             reset();
+    73                                               
+    74                                                       // Test case 2 : Write 1 element then read it
+    75                                                       assert(koko.randomize());
+    76              1                          1             write(koko.wdata, 0);
+    77                                               
+    78              1                          4             repeat(4) @(posedge fifo_if.rclk); // CDC sync delay
+    78              2                          4     
+    79              1                          1             #1ps;
+    80                                                       assert(!fifo_if.fifo_empty) 
+    81                                                       else begin
+    82                                                           error_count++;
+    83                                                           $display("empty flag failed");
+    84                                                       end
+    85                                               
+    86              1                          1             read(0);
+    87                                               
+    88              1                          1             #1ps;
+    89                                                       assert(fifo_if.fifo_empty) 
+    90                                                       else begin
+    91                                                           error_count++;
+    92                                                           $display("empty flag failed");
+    93                                                       end
+    94                                               
+    95                                                       // Test case 3 : Write elements then read them
+    96              1                         15             repeat (DEPTH-1) begin
+    97                                                           assert(koko.randomize());
+    98              1                         15                 write(koko.wdata, 1);        
+    99                                                       end
+    100                                                      assert(koko.randomize());
+    101             1                          1             write(koko.wdata, 0);
+    102                                              
+    103             1                          4             repeat(4) @(posedge fifo_if.rclk); // CDC sync delay
+    103             2                          4     
+    104             1                         15             repeat (DEPTH-1) read(1);
+    104             2                         15     
+    105             1                          1             read(0);
+    106                                              
+    107                                                      // Test case 4 : Test full flag
+    108             1                         15             repeat (DEPTH-1) begin
+    109                                                          assert(koko.randomize());
+    110             1                         15                 write(koko.wdata, 1);
+    111                                                      end
+    112                                                      assert(koko.randomize());
+    113             1                          1             write(koko.wdata, 0);
+    114                                              
+    115             1                          1             #1ps;
+    116                                                      assert(fifo_if.fifo_full) 
+    117                                                      else begin
+    118                                                          error_count++;
+    119                                                          $display("full flag failed");
+    120                                                      end
+    121                                              
+    122                                                      // Test case 5 : Test empty flag 
+    123             1                          4             repeat(4) @(posedge fifo_if.rclk); // CDC sync delay
+    123             2                          4     
+    124                                              
+    125             1                         15             repeat (DEPTH-1) begin
+    126             1                         15                 read(1);
+    127                                                      end
+    128             1                          1             read(0);
+    129                                              
+    130             1                          1             #1ps;
+    131                                                      assert(fifo_if.fifo_empty) 
+    132                                                      else begin
+    133                                                          error_count++;
+    134                                                          $display("empty flag failed");
+    135                                                      end
+    136                                              
+    137             1                          1             $finish;
+    138                                                  end
+    139                                              
+    140                                                  final begin
+    141             1                    ***0***             $display("correct_count = %0d,           error_count = %0d", correct_count, error_count);
+
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                        128        11       117     8.59%
+
+================================Toggle Details================================
+
+Toggle Coverage for instance /fifo_tb_top/tb --
+
+                                              Node      1H->0L      0L->1H  "Coverage"
+                                              ---------------------------------------
+                                correct_count[0-4]           1           1      100.00 
+                                  correct_count[5]           0           1       50.00 
+                               correct_count[6-31]           0           0        0.00 
+                                 error_count[0-31]           0           0        0.00 
+
+Total Node Count     =         64 
+Toggled Node Count   =          5 
+Untoggled Node Count =         59 
+
+Toggle Coverage      =       8.59% (11 of 128 bins)
+
+=================================================================================
+=== Instance: /fifo_tb_top
+=== Design Unit: work.fifo_tb_top
+=================================================================================
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                       8         8         0   100.00%
+
+================================Statement Details================================
+
+Statement Coverage for instance /fifo_tb_top --
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File tb/fifo_tb_top.sv
+    3                                                module fifo_tb_top ();
+    4                                                
+    5                                                    parameter READ_CLK_PERIOD = 10; //100MHZ
+    6                                                    parameter WRITE_CLK_PERIOD = 10; // 100MHZ
+    7                                                    parameter WIDTH = 4;
+    8                                                    parameter DEPTH = 16;
+    9                                                
+    10                                                   bit rclk;
+    11                                                   bit wclk;
+    12                                               
+    13                                                   // read clock
+    14                                                   initial begin
+    15              1                          1             rclk = 0;
+    16              1                          1             forever begin
+    17              1                        164                 #(READ_CLK_PERIOD/2); 
+    18              1                        163                 rclk = ~rclk;
+    19                                                       end
+    20                                                   end
+    21                                                   // write clock
+    22                                                   initial begin
+    23              1                          1             wclk = 0;
+    24              1                          1             forever begin
+    25              1                        164                 #(WRITE_CLK_PERIOD/2); 
+    26              1                        163                 wclk = ~wclk;
+
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                          4         4         0   100.00%
+
+================================Toggle Details================================
+
+Toggle Coverage for instance /fifo_tb_top --
+
+                                              Node      1H->0L      0L->1H  "Coverage"
+                                              ---------------------------------------
+                                              rclk           1           1      100.00 
+                                              wclk           1           1      100.00 
+
+Total Node Count     =          2 
+Toggled Node Count   =          2 
+Untoggled Node Count =          0 
+
+Toggle Coverage      =     100.00% (4 of 4 bins)
+
+=================================================================================
+=== Instance: /constraint_pkg
+=== Design Unit: work.constraint_pkg
+=================================================================================
+
+Covergroup Coverage:
+    Covergroups                      2        na        na   100.00%
+        Coverpoints/Crosses          4        na        na        na
+            Covergroup Bins          8         8         0   100.00%
+----------------------------------------------------------------------------------------------------------
+Covergroup                                             Metric       Goal       Bins    Status               
+                                                                                                         
+----------------------------------------------------------------------------------------------------------
+ TYPE /constraint_pkg/fifo_cov/cg_write               100.00%        100          -    Covered              
+    covered/total bins:                                     4          4          -                      
+    missing/total bins:                                     0          4          -                      
+    % Hit:                                            100.00%        100          -                      
+    Coverpoint write_en                               100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin high                                           33          1          -    Covered              
+        bin low                                            49          1          -    Covered              
+    Coverpoint full_flag                              100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin high                                           16          1          -    Covered              
+        bin low                                            66          1          -    Covered              
+ TYPE /constraint_pkg/fifo_cov/cg_read                100.00%        100          -    Covered              
+    covered/total bins:                                     4          4          -                      
+    missing/total bins:                                     0          4          -                      
+    % Hit:                                            100.00%        100          -                      
+    Coverpoint read_en                                100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin high                                           33          1          -    Covered              
+        bin low                                            49          1          -    Covered              
+    Coverpoint empty_flag                             100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin high                                           16          1          -    Covered              
+        bin low                                            66          1          -    Covered              
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                       3         3         0   100.00%
+
+================================Statement Details================================
+
+Statement Coverage for instance /constraint_pkg --
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File tb/cons.sv
+    1                                                package constraint_pkg;
+    2                                                
+    3                                                    parameter WIDTH = 4;
+    4                                                    
+    5                                                    class fifo_transaction;
+    6                                                        rand logic [WIDTH-1:0] wdata;
+    7                                                
+    8                                                
+    9                                                        constraint valid_data {
+    10                                                           wdata != '0;
+    11                                                       }
+    12                                               
+    13                                                       function new();
+    14                                                           
+    15                                                       endfunction
+    16                                                   endclass 
+    17                                               
+    18                                               
+    19                                               
+    20                                               
+    21                                                   class fifo_cov;
+    22                                                       virtual fifo_interface vif;
+    23                                               
+    24                                                       covergroup cg_write @(posedge vif.wclk);
+    25                                               
+    26                                                           write_en: coverpoint vif.w_en {
+    27                                                               bins high = {1};
+    28                                                               bins low  = {0};
+    29                                                           }
+    30                                                           full_flag: coverpoint vif.fifo_full {
+    31                                                               bins high = {1};
+    32                                                               bins low  = {0};
+    33                                                           }
+    34                                                       endgroup
+    35                                               
+    36                                                       covergroup cg_read @(posedge vif.rclk);
+    37                                               
+    38                                                           read_en: coverpoint vif.r_en {
+    39                                                               bins high = {1};
+    40                                                               bins low  = {0};
+    41                                                           }
+    42                                                           empty_flag: coverpoint vif.fifo_empty {
+    43                                                               bins high = {1};
+    44                                                               bins low  = {0};
+    45                                                           }
+    46                                                       endgroup
+    47                                               
+    48                                               
+    49                                                       function new(virtual fifo_interface vif);
+    50              1                          1                 this.vif = vif;
+    51              1                          1                 cg_write = new();
+    52              1                          1                 cg_read = new();
+
+
+COVERGROUP COVERAGE:
+----------------------------------------------------------------------------------------------------------
+Covergroup                                             Metric       Goal       Bins    Status               
+                                                                                                         
+----------------------------------------------------------------------------------------------------------
+ TYPE /constraint_pkg/fifo_cov/cg_write               100.00%        100          -    Covered              
+    covered/total bins:                                     4          4          -                      
+    missing/total bins:                                     0          4          -                      
+    % Hit:                                            100.00%        100          -                      
+    Coverpoint write_en                               100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin high                                           33          1          -    Covered              
+        bin low                                            49          1          -    Covered              
+    Coverpoint full_flag                              100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin high                                           16          1          -    Covered              
+        bin low                                            66          1          -    Covered              
+ TYPE /constraint_pkg/fifo_cov/cg_read                100.00%        100          -    Covered              
+    covered/total bins:                                     4          4          -                      
+    missing/total bins:                                     0          4          -                      
+    % Hit:                                            100.00%        100          -                      
+    Coverpoint read_en                                100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin high                                           33          1          -    Covered              
+        bin low                                            49          1          -    Covered              
+    Coverpoint empty_flag                             100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin high                                           16          1          -    Covered              
+        bin low                                            66          1          -    Covered              
+
+TOTAL COVERGROUP COVERAGE: 100.00%  COVERGROUP TYPES: 2
+
+ASSERTION RESULTS:
+--------------------------------------------------------------------
+Name                 File(Line)                   Failure      Pass 
+                                                  Count        Count
+--------------------------------------------------------------------
+/fifo_tb_top/tb/#ublk#217929410#67/immed__131
+                     tb/fifo_tb.sv(131)                 0          1
+/fifo_tb_top/tb/#ublk#217929410#67/immed__116
+                     tb/fifo_tb.sv(116)                 0          1
+/fifo_tb_top/tb/#ublk#217929410#67/immed__112
+                     tb/fifo_tb.sv(112)                 0          1
+/fifo_tb_top/tb/#ublk#217929410#67/immed__100
+                     tb/fifo_tb.sv(100)                 0          1
+/fifo_tb_top/tb/#ublk#217929410#67/immed__89
+                     tb/fifo_tb.sv(89)                  0          1
+/fifo_tb_top/tb/#ublk#217929410#67/immed__80
+                     tb/fifo_tb.sv(80)                  0          1
+/fifo_tb_top/tb/#ublk#217929410#67/immed__75
+                     tb/fifo_tb.sv(75)                  0          1
+/fifo_tb_top/tb/#ublk#217929410#67/#ublk#217929410#96/immed__97
+                     tb/fifo_tb.sv(97)                  0          1
+/fifo_tb_top/tb/#ublk#217929410#67/#ublk#217929410#108/immed__109
+                     tb/fifo_tb.sv(109)                 0          1
+
+Total Coverage By Instance (filtered view): 75.64%
+
