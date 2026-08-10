@@ -15,9 +15,13 @@ interface fifo_interface(wclk, rclk);
     logic fifo_empty;
 
 
+    event start_sampling;
+
     modport DUT (input wclk, rclk, rst_n, r_en, w_en, wdata,
                  output rdata, fifo_full, fifo_empty);
 
     modport TEST (output rst_n, r_en, w_en, wdata,
                  input wclk, rclk, rdata, fifo_full, fifo_empty);
+
+    modport MONITOR (input wclk, rclk, rst_n, r_en, w_en, wdata, rdata, fifo_full, fifo_empty);
 endinterface
