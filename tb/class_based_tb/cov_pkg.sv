@@ -1,39 +1,39 @@
 package coverage_pkg;
+    import constraint_pkg::*;
 
-    parameter WIDTH = 4;
+
     class fifo_cov;
-        virtual fifo_interface vif;
+        fifo_transaction fifo_trans;
 
-        covergroup cg_write @(posedge vif.wclk);
+        covergroup cg;
 
-            write_en: coverpoint vif.w_en {
+            write_en: coverpoint fifo_trans.w_en {
                 bins high = {1};
                 bins low  = {0};
             }
-            full_flag: coverpoint vif.fifo_full {
+            full_flag: coverpoint fifo_trans.fifo_full {
+                bins high = {1};
+                bins low  = {0};
+            }
+
+            
+            read_en: coverpoint fifo_trans.r_en {
+                bins high = {1};
+                bins low  = {0};
+            }
+            empty_flag: coverpoint fifo_trans.fifo_empty {
                 bins high = {1};
                 bins low  = {0};
             }
         endgroup
 
-        covergroup cg_read @(posedge vif.rclk);
-
-            read_en: coverpoint vif.r_en {
-                bins high = {1};
-                bins low  = {0};
-            }
-            empty_flag: coverpoint vif.fifo_empty {
-                bins high = {1};
-                bins low  = {0};
-            }
-        endgroup
-
-
-        function new(virtual fifo_interface vif);
-            this.vif = vif;
-            cg_write = new();
-            cg_read = new();
+        function new();
+            cg = new();
         endfunction
 
+        function void sample_data(fifo_transaction fifo_trans);
+            this.fifo_trans = fifo_trans;
+            cg.sample();
+        endfunction
     endclass  
 endpackage

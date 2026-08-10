@@ -1,13 +1,14 @@
 import shared_pkg::*;
 import scoreboard_pkg::*;
 import coverage_pkg::*;
+import constraint_pkg::*
 
 module fifo_mon(fifo_interface.MONITOR fifo_if);
     
     
     fifo_transaction fifo_trans = new();
     scoreboard fifo_score = new();
-    fifo_cov fifo_cov = new(fifo_if);
+    fifo_cov cov = new();
 
     initial begin
         forever begin
@@ -33,6 +34,9 @@ module fifo_mon(fifo_interface.MONITOR fifo_if);
             join
 
             fork
+                begin
+                    cov.sample_data(fifo_trans);
+                end
                 begin
                     fifo_score.check(fifo_trans);
                 end
