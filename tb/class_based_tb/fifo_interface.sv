@@ -16,6 +16,7 @@ interface fifo_interface(wclk, rclk);
 
 
     event start_sampling;
+    bit test_finished;
 
     modport DUT (input wclk, rclk, rst_n, r_en, w_en, wdata,
                  output rdata, fifo_full, fifo_empty);

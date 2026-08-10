@@ -32,6 +32,9 @@ package scoreboard_pkg;
                 error_count++;
             end
         endtask
+
+        function new();
+        endfunction
         
     endclass
 endpackage

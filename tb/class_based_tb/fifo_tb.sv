@@ -2,6 +2,8 @@
 
 import constraint_pkg::*;
 import coverage_pkg::*;
+import scoreboard_pkg::*;
+import shared_pkg::*;
 
 module fifo_tb #(
     parameter WIDTH = 4,
@@ -19,7 +21,7 @@ module fifo_tb #(
         fifo_trans.rst_n = 0;
         fifo_if.rst_n = fifo_trans.rst_n;
 
-        @(posedge fifo_if.clk);
+        @(posedge fifo_if.wclk);
 
         ->fifo_if.start_sampling;
 
@@ -36,14 +38,14 @@ module fifo_tb #(
             fifo_if.w_en = fifo_trans.w_en;
             fifo_if.r_en = fifo_trans.r_en;
 
-            @(posedge fifo_if.clk);
+            @(posedge fifo_if.wclk);
 
             ->fifo_if.start_to_sample;
         end
 
-        test_finished = 1;
+        fifo_if.finish_test = 1;
 
-        @(negedge fifo_if.clk);
+        @(negedge fifo_if.wclk);
 
         ->fifo_if.start_to_sample;
 

@@ -1,7 +1,7 @@
-import shared_pkg::*;
-import scoreboard_pkg::*;
+import constraint_pkg::*;
 import coverage_pkg::*;
-import constraint_pkg::*
+import scoreboard_pkg::*;
+import shared_pkg::*;
 
 module fifo_mon(fifo_interface.MONITOR fifo_if);
     
@@ -42,7 +42,7 @@ module fifo_mon(fifo_interface.MONITOR fifo_if);
                 end
             join
 
-            if (finish_test) begin
+            if (fifo_if.finish_test) begin
                 $display("error: %d, correct: %d", error_count, correct_count);
                 $stop;
             end
