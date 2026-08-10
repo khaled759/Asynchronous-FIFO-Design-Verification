@@ -1,6 +1,5 @@
 package constraint_pkg;
-
-    parameter WIDTH = 4;
+    import shared_pkg::*;
     
     class fifo_transaction;
         // Random control signals

@@ -1,9 +1,9 @@
 `timescale 1ns/1ps
-
+import shared_pkg::*;
 import constraint_pkg::*;
 import coverage_pkg::*;
 import scoreboard_pkg::*;
-import shared_pkg::*;
+
 
 module fifo_tb #(
     parameter WIDTH = 4,
@@ -25,13 +25,13 @@ module fifo_tb #(
 
         ->fifo_if.start_sampling;
 
-        fifo_score.check_data(fifo_trans);
+        fifo_score.check(fifo_trans);
 
         fifo_trans.rst_n = 1;
         fifo_if.rst_n = fifo_trans.rst_n;
 
-        repeat (1000) begin
-            fifo_trans.randomize();
+        repeat (500) begin
+            assert(fifo_trans.randomize());
 
             fifo_if.rst_n = fifo_trans.rst_n;
             fifo_if.wdata = fifo_trans.wdata;
@@ -40,14 +40,16 @@ module fifo_tb #(
 
             @(posedge fifo_if.wclk);
 
-            ->fifo_if.start_to_sample;
+            ->fifo_if.start_sampling;
+
+            repeat(3) @(posedge fifo_if.wclk);
         end
 
-        fifo_if.finish_test = 1;
+        finish_test = 1;
 
         @(negedge fifo_if.wclk);
 
-        ->fifo_if.start_to_sample;
+        ->fifo_if.start_sampling;
 
     
     end

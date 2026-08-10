@@ -1,5 +1,3 @@
-# ai generated script for fast simulation 
-
 # ============================================================
 # QuestaSim Run Script
 # Async FIFO Project
@@ -11,6 +9,7 @@ set PROJECT_ROOT "C:/digital_electronics/Projects/async_fifo"
 set SRC_DIR     [file join $PROJECT_ROOT src]
 set TB_DIR      [file join $PROJECT_ROOT tb/class_based_tb]
 set REPORTS_DIR [file join $PROJECT_ROOT reports]
+set TB_LIST     [file join $TB_DIR files.list]
 
 
 puts ""
@@ -21,6 +20,7 @@ puts "Project Root : $PROJECT_ROOT"
 puts "Source Dir   : $SRC_DIR"
 puts "Testbench Dir: $TB_DIR"
 puts "Reports Dir  : $REPORTS_DIR"
+puts "TB List File : $TB_LIST"
 puts "=========================================="
 
 set TB_TOP "fifo_tb_top"
@@ -36,7 +36,7 @@ if {![file exists $REPORTS_DIR]} {
 
 # Coverage files
 set COV_UCDB [file join $REPORTS_DIR fifo_coverage.ucdb]
-set COV_RPT  [file join $REPORTS_DIR coverage_report.txt]
+set COV_RPT  [file join $REPORTS_DIR rpt.txt]
 
 puts ""
 puts "=========================================="
@@ -90,28 +90,20 @@ foreach file $src_files {
 
 puts ""
 puts "=========================================="
-puts " Compiling Testbench"
+puts " Compiling Testbench (via files.list)"
 
-set tb_files [find_files $TB_DIR {.v .sv}]
-
-if {[llength $tb_files] == 0} {
-    puts "ERROR: No testbench files found!"
+if {![file exists $TB_LIST]} {
+    puts "ERROR: $TB_LIST not found!"
     quit -code 1
 }
 
-foreach file $tb_files {
-    puts ""
-    puts "Compiling TB:"
-    puts "  $file"
-
-    vlog -sv \
-         +cover \
-         +define+SIM \
-         +incdir+$SRC_DIR \
-         +incdir+$TB_DIR \
-         -work work \
-         $file
-}
+vlog -sv \
+     +cover \
+     +define+SIM \
+     +incdir+$SRC_DIR \
+     +incdir+$TB_DIR \
+     -work work \
+     -f $TB_LIST
 
 puts ""
 puts "=========================================="
@@ -136,6 +128,5 @@ coverage save $COV_UCDB -onexit
 onbreak {resume}
 run -all
 
-# ============================================================
 # Generate Text Coverage Report
-vcover report C:\digital_electronics\Projects\async_fifo\reports\fifo_coverage.ucdb -details -annotate -all -output C:\digital_electronics\Projects\async_fifo\reports\rpt.txt
+vcover report $COV_UCDB -details -annotate -all -output $COV_RPT

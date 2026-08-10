@@ -42,8 +42,10 @@ module fifo_mon(fifo_interface.MONITOR fifo_if);
                 end
             join
 
-            if (fifo_if.finish_test) begin
-                $display("error: %d, correct: %d", error_count, correct_count);
+            if (finish_test) begin
+                $display("*************************************");
+                $display("error: %d,                  correct: %d", error_count, correct_count);
+                $display("*************************************");
                 $stop;
             end
         end
