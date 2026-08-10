@@ -38,6 +38,8 @@ module fifo_tb_top ();
         .WIDTH(WIDTH),
         .DEPTH(DEPTH)
     ) tb (fifo_if);
+
+    fifo_mon monitor (fifo_if);
 endmodule
 
 
